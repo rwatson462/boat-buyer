@@ -1,0 +1,14 @@
+
+button {
+    cursor: pointer;
+    outline: none;
+    background-color: #555;
+    border: 0;
+    padding: 0.25rem;
+    color: $colour-text;
+
+    &:hover {
+        background-color: lighten($colour-body-background, 10%);
+        color: darken($colour-text, 10%);
+    }
+}

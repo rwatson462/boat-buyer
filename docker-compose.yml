@@ -1,0 +1,23 @@
+version: "3.0"
+services:
+  frontend:
+    build: docker/frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend:/app"
+  backend:
+    build: docker/backend
+    ports:
+      - "3001:8000"
+    volumes:
+      - "./backend:/app"
+  database:
+    image: mysql:8
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_USER=boat-buyer
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=boat-buyer

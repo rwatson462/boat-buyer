@@ -1,0 +1,29 @@
+
+$colour-body-background: #333;
+$colour-text: #eee;
+
+
+
+$colour-link: yellow;
+$colour-link-hover: yellow;
+$colour-link-active: yellow;
+$colour-link-visited: yellow;
+
+
+body {
+    background-color: $colour-body-background;
+    color: $colour-text;
+}
+
+a {
+    color: $colour-link;
+}
+a:hover {
+    color: $colour-link-hover;
+}
+a:active {
+    color: $colour-link-active;
+}
+a:visited {
+    color: $colour-link-visited;
+}
