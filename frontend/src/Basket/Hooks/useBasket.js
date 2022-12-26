@@ -1,7 +1,13 @@
-import BasketSubscriber from "../Subscriber/BasketSubscriber"
+import { useContext, useSyncExternalStore } from "react"
+import BasketContext from "../Context/BasketContext"
 
 export default function useBasket() {
-  const [ basket, setBasket ] = BasketSubscriber()
+  const store = useContext(BasketContext)
+
+  const { basket } = useSyncExternalStore(
+    store.subscribe,
+    store.get
+  )
 
   const isInBasket = (item) => (
     basket.find(basketItem => basketItem.name === item.name)
@@ -18,7 +24,7 @@ export default function useBasket() {
         ))
       : [...basket, {...item, qty}]
 
-    setBasket(newBasket)
+    store.set({ basket: newBasket })
   }
 
   const removeFromBasket = ({ item, qty }) => {
@@ -40,12 +46,17 @@ export default function useBasket() {
       ]
     }, [])
 
-    setBasket(newBasket)
+    store.set(newBasket)
+  }
+
+  const clearBasket = () => {
+    store.set({ basket: [] })
   }
 
   return {
     basket,
     addToBasket,
     removeFromBasket,
+    clearBasket,
   }
 }

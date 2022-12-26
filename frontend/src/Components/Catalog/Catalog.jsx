@@ -59,7 +59,7 @@ export default function Catalog() {
     <>
       <SectionTitle title='Catalogue' />
       <CatalogSortOptions onChange={setSortBy} />
-      <CatalogSearchOptions value={searchText} onChange={updateSearchText} />
+      {/* <CatalogSearchOptions value={searchText} onChange={updateSearchText} /> */}
       <CatalogItemsList items={catalogItems} />
     </>
   )
