@@ -22,7 +22,7 @@ export default function useBasket() {
             price: basketItem.price
           } : basketItem
         ))
-      : [...basket, {...item, qty}]
+      : [...basket, {name: item.name, price: item.price, qty}]
 
     store.set({ basket: newBasket })
   }
@@ -46,7 +46,7 @@ export default function useBasket() {
       ]
     }, [])
 
-    store.set(newBasket)
+    store.set({ basket: newBasket })
   }
 
   const clearBasket = () => {

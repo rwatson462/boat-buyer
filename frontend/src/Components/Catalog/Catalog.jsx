@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 import CatalogRepository from "../../Catalog/Repository/CatalogRepository"
+import useRepository from "../../Hooks/useRepository"
 import SectionTitle from "../SectionTitle"
 import CatalogItemsList from "./CatalogItemsList"
 import CatalogSearchOptions from "./CatalogSearchOptions"
@@ -8,17 +9,15 @@ import CatalogSortOptions from "./CatalogSortOptions"
 
 export default function Catalog() {
   const [sortBy, setSortBy] = useState('name')
-  const catalogRepository = CatalogRepository()
+  const catalogRepository = useRepository(CatalogRepository)
   const [searchText, setSearchText] = useState('')
   const queryClient = useQueryClient()
 
-  const params = {
-    name: searchText
-  }
-
   const { data: catalogItems, isLoading, isError } = useQuery({
-    queryKey: ['catalog'],
-    queryFn: () => catalogRepository.search(params)
+    queryKey: ['catalog', searchText],
+    queryFn: () => catalogRepository.search({
+      name: searchText
+    })
   })
 
   const updateSearchText = (text) => {
@@ -27,18 +26,10 @@ export default function Catalog() {
   }
 
   if (isError) {
-    return (
-      <p>ERROR</p>
-    )
+    throw new Error('An error occured loading the Product Catalog')
   }
 
-  if (isLoading) {
-    return (
-      <p>Loading...</p>
-    )
-  }
-
-  catalogItems.sort((a,b) => {
+  catalogItems?.sort((a,b) => {
     if (sortBy === 'name-asc') {
       return a.name.localeCompare(b.name)
     }
@@ -59,8 +50,8 @@ export default function Catalog() {
     <>
       <SectionTitle title='Catalogue' />
       <CatalogSortOptions onChange={setSortBy} />
-      {/* <CatalogSearchOptions value={searchText} onChange={updateSearchText} /> */}
-      <CatalogItemsList items={catalogItems} />
+      <CatalogSearchOptions value={searchText} onChange={updateSearchText} />
+      <CatalogItemsList loading={isLoading} items={catalogItems} />
     </>
   )
 }

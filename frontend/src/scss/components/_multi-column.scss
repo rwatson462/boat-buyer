@@ -9,6 +9,9 @@
         border: 2px solid;
         border-radius: 0.25rem;
 
+        // cute little glow effect
+        box-shadow: inset 0 0 1rem $colour-border;
+
         .section-title {
             text-align: center;
         }

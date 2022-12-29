@@ -16,6 +16,7 @@ class Product {
         ?string $updated_at,
         public string $name,
         public int $price,
+        public ?string $image_url = null
     ) {
         if ($created_at !== null) {
             $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $created_at);
@@ -25,7 +26,11 @@ class Product {
         }
     }
 
-    public static function create(string $name, int $price): self
+    public static function create(
+        string $name,
+        int $price,
+        ?string $image_url = null
+    ): self
     {
         $sql = <<<SQL
 
@@ -33,15 +38,19 @@ class Product {
             SET
                 name = :name,
                 price = :price,
-                created_at = :created_at
+                created_at = :created_at,
+                image_url = :image_url
 
         SQL;
 
-        $id = DB::insert($sql, [
+        DB::insert($sql, [
             'name' => $name,
             'price' => $price,
             'created_at' => now(),
+            'image_url' => $image_url,
         ]);
+
+        $id = DB::getPdo()->lastInsertId();
 
         return self::load($id);
     }
@@ -54,6 +63,7 @@ class Product {
             'updated_at' => $this->updated_at,
             'name' => $this->name,
             'price' => $this->price,
+            'image_url' => $this->image_url,
         ];
     }
 
@@ -66,7 +76,8 @@ class Product {
                 created_at = :created_at,
                 updated_at = :updated_at,
                 name = :name,
-                price = :price
+                price = :price,
+                image_url = :image_url
             WHERE
                 id = :id
 
@@ -103,6 +114,7 @@ class Product {
             $data->updated_at,
             $data->name,
             $data->price,
+            $data->image_url,
         );
     }
 }

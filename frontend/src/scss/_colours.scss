@@ -1,6 +1,7 @@
 
 $colour-body-background: #333;
 $colour-text: #eee;
+$colour-border: #555;
 
 
 
@@ -26,4 +27,9 @@ a:active {
 }
 a:visited {
     color: $colour-link-visited;
+}
+
+input {
+    border-color: $colour-border;
+    background-color: $colour-body-background;
 }

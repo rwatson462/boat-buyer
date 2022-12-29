@@ -16,10 +16,14 @@ class CreateProduct extends Command
         $name = $this->ask('Name of product');
         $price = $this->ask('Price (in pence)');
 
-        Product::create(
-            $name,
-            $price
+        $product = Product::create(
+            name: $name,
+            price: $price,
         );
+        
+        $product->image_url = 'https://picsum.photos/seed/'. $product->id .'/1280/720';
+
+        $product->save();
         
         return Command::SUCCESS;
     }

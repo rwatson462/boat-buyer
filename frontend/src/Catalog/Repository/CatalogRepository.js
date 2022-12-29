@@ -1,10 +1,6 @@
-import axios from "axios";
 
-export default function CatalogRepository() {
-  const client = axios.create({
-    baseURL: 'http://localhost:3001/api'
-  })
-
+export default function CatalogRepository(client) {
+  
   const search = (params) => {
     const queryString = new URLSearchParams(params)
     return client.get(`catalog?${queryString}`)
