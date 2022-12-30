@@ -10,6 +10,8 @@ $colour-link-hover: yellow;
 $colour-link-active: yellow;
 $colour-link-visited: yellow;
 
+$colour-danger: red;
+
 
 body {
     background-color: $colour-body-background;
@@ -17,16 +19,11 @@ body {
 }
 
 a {
-    color: $colour-link;
+    color: $colour-text;
+    border-bottom: 1px solid;
 }
 a:hover {
     color: $colour-link-hover;
-}
-a:active {
-    color: $colour-link-active;
-}
-a:visited {
-    color: $colour-link-visited;
 }
 
 input {

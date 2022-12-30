@@ -1,0 +1,29 @@
+
+.product-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 2fr 1fr;
+    gap: 0;
+
+    border: 2px solid $colour-border;
+
+    .product-image-full {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-information {
+        display: flex;
+        flex-direction: column;
+
+        > div {
+            padding: 0 1rem;
+            flex-grow: 1;
+        }
+
+        > button {
+            flex-grow: 0;
+            padding: 1rem;
+        }
+    }
+}
