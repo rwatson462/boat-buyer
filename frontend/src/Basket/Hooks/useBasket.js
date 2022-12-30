@@ -9,6 +9,10 @@ export default function useBasket() {
     store.get
   )
 
+  const persistBasket = (basket) => {
+    localStorage.setItem('basket', JSON.stringify(basket))
+  }
+
   const isInBasket = (item) => (
     basket.find(basketItem => basketItem.name === item.name)
   )
@@ -25,6 +29,7 @@ export default function useBasket() {
       : [...basket, {name: item.name, price: item.price, qty}]
 
     store.set({ basket: newBasket })
+    persistBasket(newBasket)
   }
 
   const removeFromBasket = ({ item, qty }) => {
@@ -47,10 +52,12 @@ export default function useBasket() {
     }, [])
 
     store.set({ basket: newBasket })
+    persistBasket(newBasket)
   }
 
   const clearBasket = () => {
     store.set({ basket: [] })
+    persistBasket([])
   }
 
   return {
