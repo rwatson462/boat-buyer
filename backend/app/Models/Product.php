@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\ProductNotFoundException;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -102,7 +103,7 @@ class Product {
         ]);
 
         if (count($data) !== 1) {
-            throw new \RuntimeException("Cannot find record with id $id");
+            throw new ProductNotFoundException("Cannot find record with id $id");
         }
 
         // get first element of array
