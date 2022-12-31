@@ -1,4 +1,5 @@
 import useBasket from "../../Basket/Hooks/useBasket";
+import TransferBasketToCheckoutButton from "../Checkout/TransferBasketToCheckoutButton";
 import SectionTitle from "../SectionTitle";
 import BasketEmptyMessage from "./BasketEmptyMessage";
 import BasketItemsList from "./BasketItemsList";
@@ -16,9 +17,10 @@ export default function Basket() {
         : <>
           <BasketItemsList items={basket} />
           <BasketTotal items={basket} />
+          <ClearBasketButton />
+          <TransferBasketToCheckoutButton />
         </>
       }
-      <ClearBasketButton />
     </>
   )
 }
